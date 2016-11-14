@@ -5,7 +5,7 @@
 
    <endpoint
          name="AuthorWS"
-         implementation="no.rightcloud.demo.pay.ws.AuthorWS"
+         implementation="no.rightcloud.demo.author.ws.AuthorWS"
          url-pattern="/AuthorWS" />
 
 </endpoints>

@@ -6,4 +6,4 @@ rm -rf target
 #sh codegen.sh
 mvn package
 
-cp target/pay-ws-demo-1.0-SNAPSHOT.war ~/docker-vms/ora12c-db-02/deploy/.
+cp target/author-ws-demo-1.0-SNAPSHOT.war ~/docker-vms/ora12c-db-02/deploy/.
