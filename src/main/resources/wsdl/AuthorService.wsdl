@@ -1,0 +1,112 @@
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.pay.demo.rightcloud.no/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.pay.demo.rightcloud.no/" name="AuthorWSService">
+   <types>
+      <xsd:schema>
+         <xsd:import namespace="http://ws.pay.demo.rightcloud.no/" schemaLocation="../schema/AuthorWS.xsd"/>
+      </xsd:schema>
+   </types>
+   <message name="selectAuthor">
+      <part name="parameters" element="tns:selectAuthor"/>
+   </message>
+   <message name="selectAuthorResponse">
+      <part name="parameters" element="tns:selectAuthorResponse"/>
+   </message>
+   <message name="selectAllAuthors">
+      <part name="parameters" element="tns:selectAllAuthors"/>
+   </message>
+   <message name="selectAllAuthorsResponse">
+      <part name="parameters" element="tns:selectAllAuthorsResponse"/>
+   </message>
+   <message name="insertAuthor">
+      <part name="parameters" element="tns:insertAuthor"/>
+   </message>
+   <message name="insertAuthorResponse">
+      <part name="parameters" element="tns:insertAuthorResponse"/>
+   </message>
+   <message name="updateAuthor">
+      <part name="parameters" element="tns:updateAuthor"/>
+   </message>
+   <message name="updateAuthorResponse">
+      <part name="parameters" element="tns:updateAuthorResponse"/>
+   </message>
+   <message name="deleteAuthor">
+      <part name="parameters" element="tns:deleteAuthor"/>
+   </message>
+   <message name="deleteAuthorResponse">
+      <part name="parameters" element="tns:deleteAuthorResponse"/>
+   </message>
+   <portType name="AuthorWS">
+      <operation name="selectAuthor">
+         <input wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/selectAuthorRequest" message="tns:selectAuthor"/>
+         <output wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/selectAuthorResponse" message="tns:selectAuthorResponse"/>
+      </operation>
+      <operation name="selectAllAuthors">
+         <input wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/selectAllAuthorsRequest" message="tns:selectAllAuthors"/>
+         <output wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/selectAllAuthorsResponse" message="tns:selectAllAuthorsResponse"/>
+      </operation>
+      <operation name="insertAuthor">
+         <input wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/insertAuthorRequest" message="tns:insertAuthor"/>
+         <output wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/insertAuthorResponse" message="tns:insertAuthorResponse"/>
+      </operation>
+      <operation name="updateAuthor">
+         <input wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/updateAuthorRequest" message="tns:updateAuthor"/>
+         <output wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/updateAuthorResponse" message="tns:updateAuthorResponse"/>
+      </operation>
+      <operation name="deleteAuthor">
+         <input wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/deleteAuthorRequest" message="tns:deleteAuthor"/>
+         <output wsam:Action="http://ws.pay.demo.rightcloud.no/AuthorWS/deleteAuthorResponse" message="tns:deleteAuthorResponse"/>
+      </operation>
+   </portType>
+   <binding name="AuthorWSPortBinding" type="tns:AuthorWS">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <operation name="selectAuthor">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="selectAllAuthors">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="insertAuthor">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="updateAuthor">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="deleteAuthor">
+         <soap:operation soapAction=""/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+   </binding>
+   <service name="AuthorWSService">
+      <port name="AuthorWSPort" binding="tns:AuthorWSPortBinding">
+         <soap:address location="/pay-ws-demo-1.0-SNAPSHOT/AuthorWS"/>
+      </port>
+   </service>
+</definitions>

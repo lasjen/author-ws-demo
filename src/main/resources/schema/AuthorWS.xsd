@@ -1,0 +1,64 @@
+<xs:schema xmlns:tns="http://ws.pay.demo.rightcloud.no/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.pay.demo.rightcloud.no/">
+
+   <xs:element name="deleteAuthor" type="tns:deleteAuthor"/>
+   <xs:element name="deleteAuthorResponse" type="tns:deleteAuthorResponse"/>
+   <xs:element name="insertAuthor" type="tns:insertAuthor"/>
+   <xs:element name="insertAuthorResponse" type="tns:insertAuthorResponse"/>
+   <xs:element name="selectAuthor" type="tns:selectAuthor"/>
+   <xs:element name="selectAuthorResponse" type="tns:selectAuthorResponse"/>
+   <xs:element name="selectAllAuthors" type="tns:selectAllAuthors"/>
+   <xs:element name="selectAllAuthorsResponse" type="tns:selectAllAuthorsResponse"/>
+   <xs:element name="updateAuthor" type="tns:updateAuthor"/>
+   <xs:element name="updateAuthorResponse" type="tns:updateAuthorResponse"/>
+
+   <xs:complexType name="authorType">
+      <xs:sequence>
+         <xs:element name="id" type="xs:string" />
+         <xs:element name="first_name" type="xs:string" />
+         <xs:element name="last_name" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="insertAuthor">
+      <xs:sequence>
+         <xs:element name="firstname" type="xs:string" minOccurs="0"/>
+         <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="insertAuthorResponse">
+      <xs:sequence>
+         <xs:element name="return" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="deleteAuthor">
+      <xs:sequence>
+         <xs:element name="authorid" type="xs:integer" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="deleteAuthorResponse">
+      <xs:sequence>
+         <xs:element name="return" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="selectAuthor">
+      <xs:sequence>
+         <xs:element name="authorid" type="xs:int"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="selectAuthorResponse">
+      <xs:sequence>
+         <xs:element name="author" type="tns:authorType"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="updateAuthor">
+      <xs:sequence>
+         <xs:element name="authorid" type="xs:integer" minOccurs="0"/>
+         <xs:element name="firstname" type="xs:string" minOccurs="0"/>
+         <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="updateAuthorResponse">
+      <xs:sequence>
+         <xs:element name="return" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
