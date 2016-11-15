@@ -1,91 +1,50 @@
 package no.rightcloud.demo.author.ws;
 
-import no.rightcloud.demo.author.jooq.tables.records.AuthorRecord;
-import no.rightcloud.demo.author.service.AuthorService;
 import no.rightcloud.demo.author.model.AuthorType;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by lassejenssen on 15/11/2016.
+ */
 @WebService(name="AuthorWS")
-public class AuthorWS {
-   private AuthorService as;
-
-   public AuthorWS(){
-      as = new AuthorService();
-   }
+@SOAPBinding(style= SOAPBinding.Style.DOCUMENT)
+public interface AuthorWS {
+   @WebMethod
+   @WebResult(name = "response")
+   String insertAuthor(@WebParam(name = "firstname") String firstname,
+                       @WebParam(name = "lastname") String lastname);
 
    @WebMethod
-   public String insertAuthor (String first_name, String last_name){
-      int id = as.insertAuthor(first_name, last_name);
-      return "OK - id:" + id;
-   }
+   @WebResult(name = "response")
+   String deleteAuthor (@WebParam(name = "authorid") BigInteger author_id);
 
    @WebMethod
-   public String deleteAuthor (BigInteger author_id){
-      System.out.println("Into WS");
-      int id = as.deleteAuthor(author_id);
-      return "Deleted author.ID = " + id;
-   }
+   @WebResult(name = "response")
+   String updateAuthor(@WebParam(name = "authorid") BigInteger author_id,
+                       @WebParam(name = "firstname") String first_name,
+                       @WebParam(name = "lastname") String last_name);
 
    @WebMethod
-   public String updateAuthor (BigInteger author_id, String first_name, String last_name){
-      int id = as.updateAuthor(author_id, first_name, last_name);
-      return "Updated author.ID = " + id;
-   }
+   @WebResult(name = "author")
+   List<AuthorType> selectAllAuthors();
 
    @WebMethod
-   public List<AuthorType> selectAllAuthors (){
-      List<AuthorRecord> list = as.fetchAllAuthors();
-      List<AuthorType> response = new ArrayList<AuthorType>();
-      list.forEach((a) -> {
-               response.add(new AuthorType(a.getId().intValue(),a.getFirstName(),a.getLastName()));
-            }
-      );
-      return response;
-   }
+   @WebResult(name = "author")
+   List<AuthorType> selectAuthorsByName(@WebParam(name = "lastname") String last_name,
+                                        @WebParam(name = "firstname") String first_name);
 
    @WebMethod
-   public List<AuthorType> selectAuthorsByName (String last_name, String first_name){
-      List<AuthorRecord> list = as.fetchAuthorsByName(last_name, first_name);
-      List<AuthorType> response = new ArrayList<AuthorType>();
-      list.forEach((a) -> {
-               response.add(new AuthorType(a.getId().intValue(),a.getFirstName(),a.getLastName()));
-            }
-      );
-      return response;
-   }
+   @WebResult(name = "author")
+   AuthorType selectAuthor(@WebParam(name = "authorid") int author_id);
 
    @WebMethod
-   public AuthorType selectAuthor (int author_id){
-      AuthorRecord rec = as.fetchAuthorById(author_id);
-      AuthorType author = new AuthorType();
-      author.setId(rec.getId().intValue());
-      author.setFirst_name(rec.getFirstName());
-      author.setLast_name(rec.getLastName());
-      return author;
-   }
-
-   @WebMethod
-   public String truncateAuthor() {
-      as.truncAuthor();
-      return "Table truncated!";
-   }
-
-  /* private String listToXML(List<AuthorRecord> list){
-      StringBuffer xml = new StringBuffer("<authors>");
-
-      list.forEach((a) -> {
-               xml.append("<author id="+ a.getId()+">\n<first_name>"+a.getFirstName()+
-                     "</first_name>\n<last_name>"+a.getLastName()+"</last_name>\n<a/author>\n");
-            }
-      );
-      xml.append("</authors>");
-
-      return xml.toString();
-   }*/
-
+   @WebResult(name = "response")
+   String truncateAuthor();
 }
