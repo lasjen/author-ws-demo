@@ -13,7 +13,7 @@ Run the following to create a Jetty image:
 cd docker/jetty-env
 docker build . -t "webserver/jetty-oracle"
 ```
-To run the jetty container see the [project description](../../../author-ws-demo)
+To run the jetty container see the [project description](../../../..)
 
 ## Accessing the Oracle database
 
