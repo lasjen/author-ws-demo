@@ -18,7 +18,7 @@ To run the jetty container see the [project description](../../../..)
 ## Accessing the Oracle database
 
 The Jetty container is setup with a connection pool towards node name "orcl-node".
-The connection pool expects to find a DEV user (with password "dev"). This user is created in the [database setup](../db-env).
+The connection pool expects to find a DEV user (with password "dev"). This user is created in the [database creation - see 1.d](../../../..).
 
 The connection pool setup is found in the [jetty-plus.xml](source/jetty-plus.xml):
 

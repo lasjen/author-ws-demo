@@ -1,5 +1,9 @@
 # Author-Demo-WS
 
+## Warning
+
+2016-11-16: This demo is under development, and is not bug free - yet! Hope to finish in a couple of days!
+
 ## Synopsis
 
 This repository contains a demo web service running towards an Oracle database using:
