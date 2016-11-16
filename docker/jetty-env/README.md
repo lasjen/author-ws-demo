@@ -1,9 +1,9 @@
-# Jetty Web Server Docker Container
+# Jetty Web Server Docker Image
 
 ## Synopsis
 
-This directory shows how to create a Jetty Container for running web applications towards an Oracle database.
-
+This directory shows how to create a Jetty docker image for running web applications towards an Oracle database.
+Note! To create and run the Jetty docker container see the [project description](../../../..).
 
 ## Getting Started
 
