@@ -108,7 +108,7 @@ Run the following to compile and deploy your application:
 ```
 rm -rf target
 mvn package
-cp target/author-ws-demo-1.0-SNAPSHOT.war ~/docker/ora12c-db-02/deploy/.
+cp target/author-ws-demo-1.0-SNAPSHOT.war ~/docker/author-db-01/deploy/.
 ```
 
 ### 4. Test webservice using SoapUI
