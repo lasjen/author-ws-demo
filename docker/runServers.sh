@@ -1,18 +1,29 @@
 #!/bin/bash
-START_APP_SERVER=0
+
+SCRIPT_NAME=`basename "$0"`
 IMAGE_NAME_DB="database/oracle12c"
 IMAGE_NAME_WS="webservice/jetty-oracle"
+CONTAINER_NR=02                           # Prefix of container name and portnumbers
+START_APP_SERVER=1                        # 1 - webserver and db, 0 - only db
 
-setVar() {
-if [ -z "$DB_NR" ]; then
-  DB_NR="01"
-fi
-CONTAINER_NAME_DB="ora12c-db-$DB_NR"
-CONTAINER_NAME_APP="jetty-ora-$DB_NR"
-TNS_PORT="15$DB_NR"
-SSH_PORT="22$DB_NR"
-APP_PORT="80$DB_NR"
+##################################################################
+###  Don't edit below this line
+##################################################################
+CONTAINER_NAME_DB="author-db-$CONTAINER_NR"
+CONTAINER_NAME_APP="author-web-$CONTAINER_NR"
+TNS_PORT="15$CONTAINER_NR"
+SSH_PORT="22$CONTAINER_NR"
+APP_PORT="80$CONTAINER_NR"
 ORA_PASSW="oracle"
+PORTS_OK=1
+PORTS_FAILED=""
+
+checkPort() {
+check_port=`nc -z localhost $1 | grep "succeeded" | wc -l`
+if [ "$check_port" -gt 0 ]; then
+  PORTS_OK=0
+  PORTS_FAILED="$PORTS_FAILED $1"
+fi
 }
 
 createDIR() {
@@ -132,12 +143,10 @@ fi
 # The command line help #
 #########################
 display_help() {
-    echo "Usage: $0 [option] {new|start|stop|restart|remove|check|passw|user} " >&2
+    echo "Usage: $0 [options] {new|start|stop|restart|remove|check|passw|user} " >&2
     echo
-    echo "   -d, --db_number        Set database container number"
-    echo "   -a, --appserv          Startup Jetty container" 
+    echo "    -h     Display this help menu"
     echo
-    # echo some stuff here for the -a or --add-options 
     exit 1
 }
 
@@ -148,19 +157,9 @@ display_help() {
 while :
 do
     case "$1" in
-      -d | --db_number)
-          if [ $# -ne 0 ]; then
-            DB_NR="$2"   # You may want to check validity of $2
-          fi
-          shift 2
-          ;;
       -h | --help)
           display_help  # Call your function
           exit 0
-          ;;
-      -a | --appserv)
-          START_APP_SERVER=1  # Trigger start of application server
-          shift
           ;;
       --) # End of all options
           shift
@@ -177,17 +176,26 @@ do
     esac
 done
 
+##################################
+# Check if ports are available
+##################################
+checkPort $TNS_PORT
+checkPort $SSH_PORT
+checkPort $APP_PORT
+
+if [ $PORTS_OK -eq 0 ];then
+   echo "Warning! Following ports are busy: $PORTS_FAILED"
+   exit 1
+fi 
 
 ######################
 # Check if parameter #
 # is set too execute #
 ######################
-setVar
-
 case "$1" in
   new)
     newDB
-    echo "Started creating new DB. To check if ready, run ... ./runDB.sh -d <id> check"
+    echo "Started creating new DB. To check if ready, run ... ./$SCRIPT_NAME check"
     ;;
   start)
     startDB

@@ -3,6 +3,7 @@ package no.rightcloud.demo.author.ws;
 import no.rightcloud.demo.author.jooq.tables.records.AuthorRecord;
 import no.rightcloud.demo.author.service.AuthorService;
 import no.rightcloud.demo.author.model.AuthorType;
+import no.rightcloud.demo.author.ws.exceptions.AuthorServiceException;
 
 import javax.jws.WebService;
 import java.math.BigInteger;
@@ -17,8 +18,11 @@ public class AuthorWSImpl implements AuthorWS {
       as = new AuthorService();
    }
 
-   public String insertAuthor(String firstname,
-                              String lastname){
+   public String insertAuthor(String firstname, String lastname) throws AuthorServiceException {
+      firstname.trim(); lastname.trim();
+      if (lastname.isEmpty()|| firstname.isEmpty() ) {
+         throw new AuthorServiceException("The arguments firstname and lastname must have values");
+      }
       int id = as.insertAuthor(firstname, lastname);
       return "OK - id:" + id;
    }
@@ -67,18 +71,5 @@ public class AuthorWSImpl implements AuthorWS {
       as.truncAuthor();
       return "Table truncated!";
    }
-
-  /* private String listToXML(List<AuthorRecord> list){
-      StringBuffer xml = new StringBuffer("<authors>");
-
-      list.forEach((a) -> {
-               xml.append("<author id="+ a.getId()+">\n<first_name>"+a.getFirstName()+
-                     "</first_name>\n<last_name>"+a.getLastName()+"</last_name>\n<a/author>\n");
-            }
-      );
-      xml.append("</authors>");
-
-      return xml.toString();
-   }*/
 
 }

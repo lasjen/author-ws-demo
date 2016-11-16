@@ -1,6 +1,7 @@
 package no.rightcloud.demo.author.ws;
 
 import no.rightcloud.demo.author.model.AuthorType;
+import no.rightcloud.demo.author.ws.exceptions.AuthorServiceException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -19,7 +20,7 @@ public interface AuthorWS {
    @WebMethod
    @WebResult(name = "response")
    String insertAuthor(@WebParam(name = "firstname") String firstname,
-                       @WebParam(name = "lastname") String lastname);
+                       @WebParam(name = "lastname") String lastname) throws AuthorServiceException;
 
    @WebMethod
    @WebResult(name = "response")

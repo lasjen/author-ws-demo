@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by lassejenssen on 15/09/16.
  */
-public class AuthorDAOImpl implements AuthorDAO{
+public class AuthorDAOImpl implements AuthorDAO {
 
    public int insertAuthor(String first_name, String last_name) {
       DSLContext create = getContext("AuthorInsertWS","","");
@@ -26,7 +26,7 @@ public class AuthorDAOImpl implements AuthorDAO{
 
       return rec.getValue(Author.AUTHOR.ID).intValue();
 
-      /*
+      /* See the difference between jooq and simple jdbc :-)
       ResultSet rs;
       BigInteger id = BigInteger.valueOf(0);
       String query = "begin insert into author values (author_seq.nextval, ?, ?) returning id into ?; end;";
@@ -89,7 +89,7 @@ public class AuthorDAOImpl implements AuthorDAO{
       return null;
    }
 
-   public List<AuthorRecord> fetchAuthors(String last_name, String first_name) {
+   public List<AuthorRecord> fetchAuthors(String last_name, String first_name)  {
       DSLContext create = getContext("AuthorFetchByNameWS","","");
 
       return create.select().from(Author.AUTHOR)
