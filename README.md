@@ -14,6 +14,7 @@ The description below depends on the following requirements:
 
 - [Docker](https://www.docker.com/products/overview)
 - [Maven](https://maven.apache.org/download.cgi)
+- [SoapUI OpenSource Editon](https://www.soapui.org/downloads/soapui.html)
 
 ## Getting Started
 
@@ -22,8 +23,9 @@ The following contains a description of how to:
 1. Create and run a DevOps environment for deploying and running the demo web service
 2. Setting up the JOOQ environment using "trial" licence
 3. Deploying the application
+4. Test web services using SoapUI
 
-### 1.DevOps Environment (using Docker)
+### 1. DevOps Environment (using Docker)
 
 #### a. Creatng the  Docker Images
 This environment uses two docker containers to run an Oracle database and a Jetty web server.:
@@ -96,7 +98,17 @@ Unzip the downloaded file and install files to your maven repository:
 
 ### 3. Compile, package and Deploy the application
 
+Run the following to compile and deploy your application:
 
+```
+rm -rf target
+mvn package
+cp target/author-ws-demo-1.0-SNAPSHOT.war ~/docker/ora12c-db-02/deploy/.
+```
 
+### 4. Test webservice using SoapUI
 
+Open the "soapui/author-demo-ws-soapui-project.xml" project in SoapUI, and do your tests.
+
+Good luck!
 
