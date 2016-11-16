@@ -18,7 +18,9 @@ To run the jetty container see the [project description](../../../..)
 ## Accessing the Oracle database
 
 The Jetty container is setup with a connection pool towards node name "orcl-node".
-The setup is found in the [jetty-plus.xml](source/jetty-plus.xml):
+The connection pool expects to find a DEV user (with password "dev"). This user is created in the [database setup](../db-env).
+
+The connection pool setup is found in the [jetty-plus.xml](source/jetty-plus.xml):
 
 ```
   <!-- Add a UCP DataSource -->
@@ -42,7 +44,8 @@ When the container starts up (using runServer.sh script described in the  [proje
 
 To access the connection pool see [code](../../src/main/java/no/rightcloud/demo/author/db/DatabaseUtil.java):
 
-``` ctx = new InitialContext();
+``` 
+ctx = new InitialContext();
          // Here we lookup the datasource with the name
          // "java:comp/env/jdbc/jcgDS"
          DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/UCPPool");
