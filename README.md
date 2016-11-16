@@ -82,8 +82,8 @@ cd docker
 Run the following commands to stop, restart and remove the containers:
 ```
 cd docker
-./runServer.sh stop		# Stop containers
-./runServer.sh restart		# Stop and re-start containers
+./runServer.sh stop             # Stop containers
+./runServer.sh restart          # Stop and re-start containers
 ./runServer.sh remove           # Remove containers and container directory (including database files)
 ```
 

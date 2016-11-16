@@ -7,6 +7,8 @@ Note! To create and run the Jetty docker container see the [project description]
 
 ## Getting Started
 
+Download the ojdbc7.jar and ucp.jar files from [Oracle Downloads](http://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html), and put in the "docker/jetty-env/source" directory.
+
 Run the following to create a Jetty image:
 
 ```
