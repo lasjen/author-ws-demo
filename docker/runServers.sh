@@ -26,12 +26,36 @@ if [ "$check_port" -gt 0 ]; then
 fi
 }
 
+checkDbPorts() {
+checkPort $TNS_PORT
+checkPort $SSH_PORT
+
+if [ $PORTS_OK -eq 0 ];then
+   echo "Warning! Following ports are busy: $PORTS_FAILED"
+   exit 1
+fi
+}
+
+checkHttpPorts() {
+checkPort $APP_PORT
+
+if [ $PORTS_OK -eq 0 ];then
+   echo "Warning! Following ports are busy: $PORTS_FAILED"
+   exit 1
+fi
+}
+
+checkAllPorts() {
+ checkDbPorts
+ checkHttpPorts
+}
+
 createDIR() {
 if [ ! -d "$CONTAINER_NAME_DB" ]; then
   mkdir -p $CONTAINER_NAME_DB/oradata
-  mkdir -p $CONTAINER_NAME_DB/script
+  mkdir -p $CONTAINER_NAME_DB/script/create_users
   mkdir -p $CONTAINER_NAME_DB/deploy
-  cp script/create_users/* $CONTAINER_NAME_DB/script/.
+  cp db-env/script/create_users/* $CONTAINER_NAME_DB/script/create_users/.
 fi
 }
 
@@ -64,6 +88,7 @@ if [[ $(docker ps | grep $CONTAINER_NAME_DB | wc -c) -ne 0 ]]; then
   echo "Warning! Oracle container allready running!"
   exit 1
 fi
+checkDbPorts
 echo "Create new directory for $CONTAINER_NAME_DB"
 createDIR
 echo "Starting Docker Container: $CONTAINER_NAME_DB "
@@ -72,6 +97,7 @@ docker run -d --name $CONTAINER_NAME_DB -p $TNS_PORT:1521 -p $SSH_PORT:22 -e ORA
 if [ $(docker ps | grep $CONTAINER_NAME_APP | wc -c) -ne 0 ] && [ $START_APP_SERVER -eq 1 ]; then
   echo "Warning! Jetty container allready running!"
 elif [ $START_APP_SERVER -eq 1 ]; then
+  checkHttpPorts
   docker run -d --name $CONTAINER_NAME_APP -p $APP_PORT:8080 -v $PWD/$CONTAINER_NAME_DB/deploy:/var/lib/jetty/webapps --link $CONTAINER_NAME_DB:orcl-node $IMAGE_NAME_WS
 fi
 }
@@ -83,9 +109,11 @@ if [ $(docker ps | grep $CONTAINER_NAME_DB | wc -c) -gt 0 ]; then
 elif [ $(docker ps -a | grep $CONTAINER_NAME_DB | wc -c) -eq 0 ]; then
   echo "Warning! Container $CONTAINER_NAME_DB does not exist"
   exit 1
+else
+  checkDBPorts
+  echo "Starting Container: $CONTAINER_NAME_DB"
+  docker start $CONTAINER_NAME_DB
 fi
-echo "Starting Container: $CONTAINER_NAME_DB"
-docker start $CONTAINER_NAME_DB
 
 if [ $START_APP_SERVER -eq 1 ] && [ $(docker ps | grep $CONTAINER_NAME_APP | wc -c) -gt 0 ]; then
   echo "Warning! Jetty container allready running!"
@@ -93,9 +121,12 @@ if [ $START_APP_SERVER -eq 1 ] && [ $(docker ps | grep $CONTAINER_NAME_APP | wc 
 elif [ $START_APP_SERVER -eq 1 ] && [ $(docker ps -a | grep $CONTAINER_NAME_APP | wc -c) -eq 0 ]; then
   echo "Warning! Container $CONTAINER_NAME_APP does not exist"
   exit 1
+else
+  checkHttpPorts
+  echo "Starting Jetty Container: $CONTAINER_NAME_APP"
+  docker start $CONTAINER_NAME_APP
 fi
-echo "Starting Jetty Container: $CONTAINER_NAME_APP"
-docker start $CONTAINER_NAME_APP
+
 }
 
 stopDB() {
@@ -132,10 +163,10 @@ if [ $is_ready = "TRUE" ]; then
 fi
 }
 
-createUser() {
+createUsers() {
 is_ready=$(readyDB)
 if [ $is_ready = "TRUE" ]; then
-  docker exec $CONTAINER_NAME_DB /opt/oracle/script/createUser.sh 
+  docker exec $CONTAINER_NAME_DB /opt/oracle/script/create_users/createUsers.sh 
 fi
 }
 
@@ -143,7 +174,7 @@ fi
 # The command line help #
 #########################
 display_help() {
-    echo "Usage: $0 [options] {new|start|stop|restart|remove|check|passw|user} " >&2
+    echo "Usage: $0 [options] {new|start|stop|restart|remove|check|passw|users} " >&2
     echo
     echo "    -h     Display this help menu"
     echo
@@ -175,18 +206,6 @@ do
           ;;
     esac
 done
-
-##################################
-# Check if ports are available
-##################################
-checkPort $TNS_PORT
-checkPort $SSH_PORT
-checkPort $APP_PORT
-
-if [ $PORTS_OK -eq 0 ];then
-   echo "Warning! Following ports are busy: $PORTS_FAILED"
-   exit 1
-fi 
 
 ######################
 # Check if parameter #
@@ -220,8 +239,8 @@ case "$1" in
   passw)
     setPW
     ;;
-  user)
-    createUser
+  users)
+    createUsers
     ;;
   *)
     display_help

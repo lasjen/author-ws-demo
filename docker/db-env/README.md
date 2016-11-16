@@ -15,13 +15,12 @@ Passwords for both users are set to "dev".
 ### Creating the Orace Database docker image
 
 Use the official docker images to build a [Oracle Database Image](https://github.com/oracle/docker-images/tree/master/OracleDatabase). 
-Note! Name the image "database/oracle12c".
 
 1. Clone git repo (https://github.com/oracle/docker-images.git)
 2. Download Oracle installation files for 12.1.0.2
 3. Build image
 
-#### Clone Git repo
+#### 1.Clone Git repo
 Run the following command to clone the docker-image repo:
 ```
 git clone https://github.com/oracle/docker-images.git
@@ -30,7 +29,7 @@ ls | grep -v OracleDatabase | xargs rm -rf
 ```
 Note! You will only need the OracleDatabase directory.
 
-#### Download the Oracle installation software
+#### 2.Download the Oracle installation software
 
 Download the 12.1.0.2 installation files: 
 - linuxamd64_12102_database_1of2.zip
@@ -43,7 +42,7 @@ cd docker-images
 cp <download path>/linuxamd64_12102_database*.zip OracleDatabase/dockerfiles/12.1.0.2/.
 ```
 
-#### Build Oracle Database Image
+#### 3.Build Oracle Database Image
 
 Run the following commands:
 ```
@@ -54,6 +53,9 @@ Run the following command to verify your image:
 ```
 docker images | grep "oracle/database"
 ```
+### Starting and running the Oracle Database Container
+
+To start and run the Oracle database container see the [project description](../../../..)
 
 Good luck!
 
