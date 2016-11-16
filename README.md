@@ -18,6 +18,7 @@ The description below depends on the following requirements:
 ## Getting Started
 
 The following contains a description of how to:
+
 1. Create and run a DevOps environment for deploying and running the demo web service
 2. Setting up the JOOQ environment using "trial" licence
 3. Deploying the application
