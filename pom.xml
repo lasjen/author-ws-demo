@@ -12,6 +12,63 @@
    <build>
       <plugins>
          <plugin>
+
+            <!-- Specify the maven code generator plugin -->
+            <!-- Use org.jooq            for the Open Source edition
+                     org.jooq.pro        for commercial editions,
+                     org.jooq.pro-java-6 for commercial editions with Java 6 support,
+                     org.jooq.trial      for the free trial edition -->
+            <groupId>org.jooq.trial</groupId>
+            <artifactId>jooq-codegen-maven</artifactId>
+            <version>3.8.6</version>
+
+            <!-- The plugin should hook into the generate goal -->
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>generate</goal>
+                  </goals>
+               </execution>
+            </executions>
+
+            <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
+            <dependencies>
+               <dependency>
+                  <groupId>com.oracle</groupId>
+                  <artifactId>ojdbc7</artifactId>
+                  <version>12.1.0.1</version>
+               </dependency>
+            </dependencies>
+
+            <!-- Specify the plugin configuration.
+                 The configuration format is the same as for the standalone code generator -->
+            <configuration>
+
+               <!-- JDBC connection parameters -->
+               <jdbc>
+                  <driver>oracle.jdbc.OracleDriver</driver>
+                  <url>jdbc:oracle:thin:@localhost:1502/orcl</url>
+                  <user>devdata</user>
+                  <password>dev</password>
+               </jdbc>
+
+               <!-- Generator parameters -->
+               <generator>
+                  <database>
+                     <name>org.jooq.util.oracle.OracleDatabase</name>
+                     <includes>.*</includes>
+                     <excludes>SCHEMA_VERSION</excludes>
+                     <inputSchema>devdata</inputSchema>
+                  </database>
+                  <target>
+                     <packageName>no.rightcloud.demo.jooq</packageName>
+                     <directory>src/main/java</directory>
+                  </target>
+               </generator>
+            </configuration>
+         </plugin>
+
+         <plugin>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
             <version>4.0.3</version>
