@@ -3,6 +3,8 @@
 ## Synopsis
 
 This directory shows how to create a Jetty docker image for running web applications towards an Oracle database.
+The Jetty container is setup to use an Oracle UCP connection pool.
+
 Note! To create and run the Jetty docker container see the [project description](../../../..).
 
 ## Getting Started
@@ -48,10 +50,9 @@ To access the connection pool see [code](../../src/main/java/no/rightcloud/demo/
 
 ``` 
 ctx = new InitialContext();
-         // Here we lookup the datasource with the name
-         // "java:comp/env/jdbc/jcgDS"
-         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/UCPPool");
-         return ds.getConnection();:
+// Here we lookup the datasource with the name "java:comp/env/jdbc/UCPPool"
+DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/UCPPool");
+return ds.getConnection();:
 ```
 ## Running the container
 

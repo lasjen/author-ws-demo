@@ -9,6 +9,7 @@
 This repository contains a demo web service running towards an Oracle database using:
 
 - Java Object Oriented Query (jOOQ) language
+- Oracle Universal Connection Pool (UCP)
 
 The repository also contains  descriptions and templates to run the database and web server environments.
 
