@@ -19,6 +19,7 @@ The description below depends on the following requirements:
 
 - [Docker](https://www.docker.com/products/overview)
 - [Maven](https://maven.apache.org/download.cgi)
+- [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)
 - [SoapUI OpenSource Editon](https://www.soapui.org/downloads/soapui.html)
 
 ## Getting Started
