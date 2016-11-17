@@ -109,27 +109,27 @@ Follow the description on this [page](https://blogs.oracle.com/dev2dev/entry/ora
 
 ```
 <server>
-      <id>maven.oracle.com</id>
-      <username>firstname.lastname@test.com</username>
-      <password>insert the password from the "mvn -emp" command above</password>
-      <configuration>
-        <basicAuthScope>
-          <host>ANY</host>
-          <port>ANY</port>
-          <realm>OAM 11g</realm>
-        </basicAuthScope>
-        <httpConfiguration>
-          <all>
-            <params>
-              <property>
-                <name>http.protocol.allow-circular-redirects</name>
-                <value>%b,true</value>
-              </property>
-            </params>
-          </all>
-        </httpConfiguration>
-      </configuration>
-    </server>
+  <id>maven.oracle.com</id>
+  <username>firstname.lastname@test.com</username>
+  <password>insert the password from the "mvn -emp" command above</password>
+  <configuration>
+    <basicAuthScope>
+      <host>ANY</host>
+      <port>ANY</port>
+      <realm>OAM 11g</realm>
+    </basicAuthScope>
+    <httpConfiguration>
+      <all>
+        <params>
+          <property>
+            <name>http.protocol.allow-circular-redirects</name>
+            <value>%b,true</value>
+          </property>
+        </params>
+      </all>
+    </httpConfiguration>
+  </configuration>
+</server>
 ```
 Note! Remember to update the "username" tag with your Oracle user e-mail address, and to update the "password" tag with the encrypted password given by the "mvn -emp" command.
 
