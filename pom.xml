@@ -100,6 +100,15 @@
                <target>1.8</target>
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+               <warName>author-ws-demo-1.0-SNAPSHOT</warName>
+               <outputDirectory>/Users/lassejenssen/docker-vms/ora12c-db-02/deploy</outputDirectory>
+            </configuration>
+         </plugin>
       </plugins>
    </build>
 
