@@ -104,7 +104,7 @@ Unzip the downloaded file and install files to your maven repository:
 ### 3. Compile, package and Deploy the application
 
 Follow the description on this [page](https://blogs.oracle.com/dev2dev/entry/oracle_maven_repository_instructions_for) to allow maven to download Oracle jars from the Oracle Maven Repository. In short:
-- Run "mvn -emp <your.oracle.user.password>"
+- Run "mvn -emp &lt;your.oracle.user.password&gt;"
 - Add the following to the <servers> section in your "~/.m2/settings.xml" file: (Note! Remember to update the "username" tag with your Oracle user e-mail address, and to update the "password" tag with the encrypted password given by the "mvn -emp" command)
 ```
 <server>
