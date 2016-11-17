@@ -42,7 +42,13 @@
     <orderEntry type="library" name="Maven: org.glassfish.gmbal:gmbal-api-only:3.1.0-b001" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.external:management-api:3.0.0-b012" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.ha:ha-api:3.1.8" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle:ojdbc7:12.1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:ojdbc7:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:xdb6:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:orai18n:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:xmlparserv2:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:oraclepki:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:osdt_cert:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:osdt_core:12.1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jooq.trial:jooq:3.8.6" level="project" />
     <orderEntry type="library" name="Maven: org.jooq.trial:jooq-meta:3.8.6" level="project" />
     <orderEntry type="library" name="Maven: org.jooq.trial:jooq-codegen:3.8.6" level="project" />

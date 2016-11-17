@@ -103,7 +103,45 @@ Unzip the downloaded file and install files to your maven repository:
 
 ### 3. Compile, package and Deploy the application
 
-Run the following to compile and deploy your application:
+Follow the description on this [page](https://blogs.oracle.com/dev2dev/entry/oracle_maven_repository_instructions_for) to allow maven to download Oracle jars from the Oracle Maven Repository. In short:
+- Run "mvn -emp <your.oracle.user.password>"
+- Add the following to the <servers> section in your "~/.m2/settings.xml" file:
+
+```
+<server>
+      <id>maven.oracle.com</id>
+      <username>firstname.lastname@test.com</username>
+      <password>insert the password from the "mvn -emp" command above</password>
+      <configuration>
+        <basicAuthScope>
+          <host>ANY</host>
+          <port>ANY</port>
+          <realm>OAM 11g</realm>
+        </basicAuthScope>
+        <httpConfiguration>
+          <all>
+            <params>
+              <property>
+                <name>http.protocol.allow-circular-redirects</name>
+                <value>%b,true</value>
+              </property>
+            </params>
+          </all>
+        </httpConfiguration>
+      </configuration>
+    </server>
+```
+Note! Remember to set the <password>XXX</password> to the encrypted password given by the "mvn -emp <password>" command.
+
+- Create a new file "~/.m2/settings-security.xml" with the following content:
+```
+<settingsSecurity>
+<master>insert the password from the "mvn -emp" command above</master>
+</settingsSecurity>
+```
+Note! Remember to set the <master>XXX</master> to the encrypted password given by the "mvn -emp <password>" command.
+
+- Run the following to compile and deploy your application:
 
 ```
 rm -rf target
