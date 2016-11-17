@@ -131,7 +131,7 @@ Follow the description on this [page](https://blogs.oracle.com/dev2dev/entry/ora
       </configuration>
     </server>
 ```
-Note! Remember to set the <password>XXX</password> to the encrypted password given by the "mvn -emp <password>" command.
+Note! Remember to update the "username" tag with your Oracle user e-mail address, and to update the "password" tag with the encrypted password given by the "mvn -emp" command.
 
 - Create a new file "~/.m2/settings-security.xml" with the following content:
 ```
@@ -139,7 +139,7 @@ Note! Remember to set the <password>XXX</password> to the encrypted password giv
 <master>insert the password from the "mvn -emp" command above</master>
 </settingsSecurity>
 ```
-Note! Remember to set the <master>XXX</master> to the encrypted password given by the "mvn -emp <password>" command.
+Note! Remember to set the "master" tag to the encrypted password given by the "mvn -emp <password>" command.
 
 - Run the following to compile and deploy your application:
 
